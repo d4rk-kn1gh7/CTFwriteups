@@ -12,7 +12,7 @@ Note: This challenge can bee solved using only chip8 instructions.
 ```
 
 We were given a chip8 emulator with a basic interface as follows:
-![Chip8-6](https://user-images.githubusercontent.com/54789221/73665060-7ba37400-46c6-11ea-9b87-277afe53d2af.png)
+![Chip8-6](https://user-images.githubusercontent.com/54789221/73665319-e6ed4600-46c6-11ea-8a6a-156b287c9f40.png)
 
 And the following list of commands:
 
