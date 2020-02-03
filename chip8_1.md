@@ -11,7 +11,10 @@ http://167.172.165.153:60003/
 Note: This challenge can bee solved using only chip8 instructions.
 ```
 
-We were given a chip8 emulator with a basic interface, and the following list of commands:
+We were given a chip8 emulator with a basic interface as follows:
+![Chip8-6](https://user-images.githubusercontent.com/54789221/73665060-7ba37400-46c6-11ea-9b87-277afe53d2af.png)
+
+And the following list of commands:
 
 ![Chip8-1](https://user-images.githubusercontent.com/54789221/73662981-c02d1080-46c2-11ea-95a3-fb88b8fed94b.png)
 ![Chip8-2](https://user-images.githubusercontent.com/54789221/73662998-c7541e80-46c2-11ea-8300-29ef73757457.png)
