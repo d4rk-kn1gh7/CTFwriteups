@@ -54,7 +54,7 @@ But, at V1=10, we hit a different output:
 Suddenly a thought struck my mind - what if the white pixels on the display were ones and the black zeros - thus leading to a binary output!
 Trying that on the first line, we get `01001000`, which is the decimal equivalent of H! It's the beginning of the flag!
 
-Continuing with our earlier method, we get the following binary output - 
+Continuing with this method, we get the following binary output - 
 ```
 01001000 01100001 01100011 01101011 01010100 01001101 01111011 01100001 00110101 00110101 01100101 01101101 00111000 01101100 01100101 01100100 01011111 01110011 00110000 01100011 01101011 01110011 01111101
 ```
