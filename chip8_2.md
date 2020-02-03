@@ -27,7 +27,7 @@ Messing around with the commands, it was pretty evident that there was no way to
 So what was the next possible thing? Code execution within that memory range. 
 The command `2 NNN`, which calls a subroutine at address 'NNN', was the command to accomplish this.
 
-Using the command `2 E00`, which calls the function at address E00 (FFF - 511 bytes), we get a weird error:
+Using the command `2 E00`, which calls the function at address E00 (4096 - 511 bytes, the first address in our forbidden memory), we get a weird error:
 
 ![Chip8-7](https://user-images.githubusercontent.com/54789221/73670541-6aab3080-46cf-11ea-938a-ccbe7ca96601.png)
 
