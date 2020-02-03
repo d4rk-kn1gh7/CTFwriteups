@@ -26,7 +26,7 @@ However, if we tried to set `I` to some memory within the protected range, we go
 
 Interesting, so that meant we had to find an alternate way to get `I` inside that memory range.
 
-After a bit of reading, one instruction looked interesting: `F X 29: Sets `I` to the location of the sprite for the character in VX`
+After a bit of reading, one instruction looked interesting: `F X 29: Sets I to the location of the sprite for the character in VX`
 
 I immediately realized that for different values stored in VX, `I` would get set to a different location, so `I` could potentially get set to a location inside the protected memory.
 
