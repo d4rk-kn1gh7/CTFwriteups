@@ -12,6 +12,7 @@ Note: This challenge can bee solved using only chip8 instructions.
 ```
 
 We were given a chip8 emulator with a basic interface as follows:
+
 ![Chip8-6](https://user-images.githubusercontent.com/54789221/73665319-e6ed4600-46c6-11ea-8a6a-156b287c9f40.png)
 
 And the following list of commands:
@@ -30,6 +31,7 @@ After a bit of reading, one instruction looked interesting: `F X 29: Sets `I` to
 I immediately realized that for different values stored in VX, `I` would get set to a different location, so `I` could potentially get set to a location inside the protected memory.
 
 Trying the following input:
+
 ![Chip8-3](https://user-images.githubusercontent.com/54789221/73663015-cde29600-46c2-11ea-8c1f-7917574525da.png)
 
 The value of `I` was set to zero! We managed to access the protected memory!
@@ -40,10 +42,13 @@ I also realised, after a bit of trial and error, that I could read information f
 with X and Y being co-ordinates, and N the height of the displayed output.
 
 Displaying at V1=1:
+
 ![Chip8-4](https://user-images.githubusercontent.com/54789221/73663032-d509a400-46c2-11ea-8979-a2a42d1fb9d6.png)
+
 However cool this output looked, it clearly wasnt the flag.
 
 But, at V1=10, we hit a different output:
+
 ![Chip8-5](https://user-images.githubusercontent.com/54789221/73663044-d935c180-46c2-11ea-8dfb-2d50e733d40e.png)
 
 Suddenly a thought struck my mind - what if the white pixels on the display were ones and the black zeros - thus leading to a binary output!
