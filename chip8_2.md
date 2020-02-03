@@ -1,4 +1,4 @@
-**CHIP 8 /a**
+**CHIP 8 /2**
 
 The challenge was as follows:
 
