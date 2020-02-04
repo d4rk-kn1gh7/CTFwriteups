@@ -51,7 +51,9 @@ But, at V1=10, we hit a different output:
 
 ![Chip8-5](https://user-images.githubusercontent.com/54789221/73663044-d935c180-46c2-11ea-8dfb-2d50e733d40e.png)
 
-Suddenly a thought struck my mind - what if the white pixels on the display were ones and the black zeros - thus leading to a binary output!
+These are an interesting set of pixels.
+
+Wait - what if the white pixels on the display were ones and the black zeros - thus leading to a binary output!
 Trying that on the first line, we get `01001000`, which is the decimal equivalent of H! It's the beginning of the flag!
 
 Continuing with this method, we get the following binary output - 
