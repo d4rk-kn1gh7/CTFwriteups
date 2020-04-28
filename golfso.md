@@ -285,3 +285,127 @@ This file is 294 bytes, and on uploading it we get our first flag:
 You made it to level 2: thoughtful! You have 70 bytes left to be hand-crafted. This effort is worthy of 1/2 flags. PCTF{th0ugh_wE_have_cl1mBed_far_we_MusT_St1ll_c0ntinue_oNward}
 ```
 
+So we apparently needed to get it to 224 bytes to obtain our next flag. However, after overlapping a few qwords from the dhdr section with junk values, we were only able to get the file to 268 bytes. Then on reading more about the structure of shared object files, we found out that we could reduce the number of program headers present from 3 to 2, as there were 2 headers present with the LOAD(1) flag. So on combining these two headers, creating a couple more header overlaps, and moving the dt_strtab entry, we get this:
+
+```
+; nasm -f bin -o libcopy.so libcopy.asm
+BITS 64
+  org 0x0
+ehdr:           ; Elf64_Ehdr
+  db 0x7f, "ELF", 2, 1, 1, 0 ; e_ident
+  times 8 db 0
+  dw  3         ; e_type
+  dw  0x3e      ; e_machine
+  dd  1         ; e_version
+  dq  _init; e_entry
+  dq  lhdr - $$ ; e_phoff
+  dq  0x358; e_shoff
+  dd  0         ; e_flags
+  dw  ehdrsize  ; e_ehsize
+  dw  phdrsize  ; e_phentsize
+  dw  2         ; e_phnum
+  ehdrsize  equ  $ - ehdr
+lhdr:
+  dd 1
+  dd 7
+  dq 0
+  dq $$
+  dq $$
+  dq filesize + 40
+  dq filesize + 40
+  dq 0
+phdrsize  equ  $ - lhdr
+dhdr:
+  dd 2  ; p_type
+  dd 6  ; p-flags
+  dq 0 ; p-offset
+  dq filesize
+_init:
+  xor eax,eax
+  xor edx,edx
+  mov rbx,'/bin/sh'
+  push rbx
+  mov rdi,rsp
+  push rax
+  push rdi
+  mov rsi,rsp
+  mov al, 59
+  syscall
+filesize  equ  $ - $$
+dynamic:
+  dq 0x0c
+  dq _init
+  dq 0x5
+  dq dt_strtab
+dt_strtab:
+  db 0x6
+```
+
+Uploading this 198-byte file gave us:
+```
+You made it to level 3: hand-crafted! You have 4 bytes left to be flag-worthy. This effort is worthy of 1/2 flags. PCTF{th0ugh_wE_have_cl1mBed_far_we_MusT_St1ll_c0ntinue_oNward}
+```
+
+So we needed to reduce the file by 4 more bytes to get it to 194 and hopefully obtain our flag!
+So finally on removing the `xor edx,edx` instruction (as the program apparently didn't mind a non-null rdx value), and replacing the `mov` instructions with `push` and `pop` instructions to reduce bytes, we get this incredibly small, but somehow working file:
+
+```
+; nasm -f bin -o libcopy.so libcopy.asm
+BITS 64
+  org 0x0
+ehdr:           ; Elf64_Ehdr
+  db 0x7f, "ELF", 2, 1, 1, 0 ; e_ident
+  times 8 db 0
+  dw  3         ; e_type
+  dw  0x3e      ; e_machine
+  dd  1         ; e_version
+  dq  i; e_entry
+  dq  lhdr - $$ ; e_phoff
+  dq  0x358; e_shoff
+  dd  0         ; e_flags
+  dw  ehdrsize  ; e_ehsize
+  dw  phdrsize  ; e_phentsize
+  dw  2         ; e_phnum
+  ehdrsize  equ  $ - ehdr
+lhdr:
+  dd 1
+  dd 7
+  dq 0
+  dq $$
+  dq $$
+  dq filesize + 40
+  dq filesize + 40
+  dq 0
+phdrsize  equ  $ - lhdr
+dhdr:
+  dd 2  ; p_type
+  dd 6  ; p-flags
+  dq 0 ; p-offset
+  dq filesize
+i:
+  xor eax,eax
+  mov rbx,'/bin/sh'
+  push rbx
+  push rsp
+  pop rdi
+  push rax
+  push rdi
+  push rsp
+  pop rsi
+  mov al, 59
+  syscall
+filesize  equ  $ - $$
+dynamic:
+  dq 0x0c
+  dq i
+  dq 0x5
+  dq dt_strtab
+dt_strtab:
+  db 0x6
+```
+
+And finally, the server gives us the response we want:
+```
+You made it to level 4: flag-worthy! You have 1 byte left to be record-breaking. This effort is worthy of 2/2 flags. PCTF{th0ugh_wE_have_cl1mBed_far_we_MusT_St1ll_c0ntinue_oNward} 
+PCTF{t0_get_a_t1ny_elf_we_5tick_1ts_hand5_in_its_ears_rtmlpntyea}
+```
