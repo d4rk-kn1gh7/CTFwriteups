@@ -30,7 +30,7 @@ _init:
       mov al, 59
       syscall
 ```
-Eventually, compiling this into an elf with nasm, and then into a shared object file with gcc, followed by a lot of manual stripping t the end of the file, we were able to get a working file of size 673 bytes.
+Eventually, compiling this into an elf with nasm, and then into a shared object file with gcc, followed by a lot of manual stripping at the end of the file, we were able to get a working file of size 673 bytes.
 
 However, uploading this onto the server gave us the following:
 ```
