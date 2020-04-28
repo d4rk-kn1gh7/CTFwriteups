@@ -92,7 +92,7 @@ _start:
 filesize  equ  $ - $$
 ```
 
-Then, in order to convert this into a shared object file, we referenced the smallest working so file we had on ida, and copied the required program headers and dynamic section. We didn't include the section headers as they werent required for the program to run. This gave us the following minimalistic 485 byte shared object file:
+Then, in order to convert this into a shared object file, we referenced the smallest working `.so` file we had on ida, and copied the required program headers and dynamic section. We didn't include the section headers as they weren't required for the program to run. This gave us the following minimalistic 485 byte shared object file:
 
 ```
 ; nasm -f bin -o libcopy.so libcopy.asm
