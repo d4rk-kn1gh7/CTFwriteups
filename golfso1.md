@@ -34,7 +34,7 @@ Eventually, compiling this into an elf with nasm, and then into a shared object 
 
 We used the following flags to compile.
 
-```shell
+```console
 nasm -f elf64 code.asm -o test.o && gcc -Os -fno-asynchronous-unwind-tables -Qn
 -fPIC -shared -Wl,-z,norelro -nostartfiles test.o -o libtest.so
 ```
