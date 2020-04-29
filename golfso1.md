@@ -56,7 +56,7 @@ Hand-crafting the assembly file
 
 Referencing links such as https://www.muppetlabs.com/~breadbox/software/tiny/teensy.html, we were able to create an elf file that executed the required commands, at a size of less than 170 bytes.
 
-```
+```asm
 ; nasm -f bin -o tiny64 tiny64.asm
 BITS 64
   org 0x400000
@@ -228,7 +228,7 @@ You made it to level 1: considerable! You have 185 bytes left to be thoughtful. 
 
 We eventually found out that this file still contained many unnecessary sections like `dt_hash` and `dt_symtab`, also the last few entries of the `ehdr` contained offsets of the section headers, which weren't in use. So we could override this with junk values, i.e the first few entries of the program header, thereby overlapping the headers and saving even more space. Doing this, we obtain the following file:
 
-```
+```asm
 ; nasm -f bin -o libcopy.so libcopy.asm
 BITS 64
   org 0x0
@@ -305,7 +305,7 @@ So we evidently needed to get it to 224 bytes to obtain our next flag. However, 
 One LOAD header was for loading the `_DYNAMIC` section, while the other was for loading the code. We combined these by making it so that both of them are loaded into memory together, this was done by modifying the offsets and with a bit of trial and error. Note that a lot of the values here make little sense and are far from what they are supposed to be as defined by the ELF file format. But it works, so we don't care!
 On combining these two headers, creating a couple more header overlaps, and moving the `dt_strtab` entry, we get this:
 
-```
+```asm
 ; nasm -f bin -o libcopy.so libcopy.asm
 BITS 64
   org 0x0
@@ -367,7 +367,7 @@ You made it to level 3: hand-crafted! You have 4 bytes left to be flag-worthy. T
 So we needed to reduce the file by 4 more bytes to get it to 194 and hopefully obtain our flag!
 So finally on removing the `xor edx,edx` instruction (as the program apparently didn't mind a non-null rdx value), and replacing the `mov` instructions with `push` and `pop` instructions to reduce bytes, we get this incredibly small, but somehow working file:
 
-```
+```asm
 ; nasm -f bin -o libcopy.so libcopy.asm
 BITS 64
   org 0x0
