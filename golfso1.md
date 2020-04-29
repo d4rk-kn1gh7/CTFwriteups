@@ -108,7 +108,7 @@ Then, in order to convert this into a shared object file, we cross-referenced th
  
 This gave us the following minimalistic 485 byte shared object file:
 
-```
+```asm
 ; nasm -f bin -o libcopy.so libcopy.asm
 BITS 64
   org 0x0
