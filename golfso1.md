@@ -14,7 +14,7 @@ Initial approaches
 Our first approach was to create a minimalistic C program containing just a simple `execve` system call. However it soon became apparent that however much you tried, even with all of gcc's optimization flags, there was no way to compile a shared object of size < 1 kb.
 
 Then, our next approach was simply creating an assembly file as follows:
-```
+```asm
 [BITS 64]
       global _init:function
       section .text
