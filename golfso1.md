@@ -302,7 +302,7 @@ You made it to level 2: thoughtful! You have 70 bytes left to be hand-crafted. T
 ```
 
 So we apparently needed to get it to 224 bytes to obtain our next flag. However, after overlapping a few qwords from the dhdr section with junk values, we were only able to get the file to 268 bytes. Then on reading more about the structure of shared object files, we found out that we could reduce the number of program headers present from 3 to 2, as there were 2 headers present with the LOAD(1) flag.
-One LOAD header was for loading the `_DYNAMIC` section, while the other was for loading the code. We combined these by making it so that that both of them are loaded into memory together, this was done by modifying the offsets and with a bit of trail and error. Note that a lot of the values here make little sense and are far from what they are supposed to be as defined by the ELF file format. But it works, so we don't care!
+One LOAD header was for loading the `_DYNAMIC` section, while the other was for loading the code. We combined these by making it so that that both of them are loaded into memory together, this was done by modifying the offsets and with a bit of trial and error. Note that a lot of the values here make little sense and are far from what they are supposed to be as defined by the ELF file format. But it works, so we don't care!
 On combining these two headers, creating a couple more header overlaps, and moving the `dt_strtab` entry, we get this:
 
 ```
